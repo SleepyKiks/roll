@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>It's Your Turn to Roll!</title>
+
+<!-- Tales of the Dead Sea ©Feb 2020 Michelle Flannigan and Kai Scott -->
+
+<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+<script src="https://zimjs.org/cdn/1.2.3/createjs_min.js"></script>
+<script src="https://zimjs.org/cdn/10.7.0/zim.js"></script>
+
+<!--
+ ____T______i_____S_____p_____B____d________
+______h__W__t__h__l__e__s__n__l__o__R__d__
+________e ____c ____e_____I______o_____e____
+ -->
+
+
+<script>
+
+
+const scaling = "fit"; 
+const width = 1024;
+const height = 768;
+const color = black; // ZIM colors like green, blue, pink, faint, clear, etc.
+const outerColor = black; 
+const assets =["https://i.ibb.co/3vCMQWq/cyan.png","https://i.ibb.co/FH2WGPk/discord.png","https://i.ibb.co/5kHD1W6/logo.png","https://i.ibb.co/pyFhFKf/magenta.png","https://i.ibb.co/YbJSvjv/rainbow.png","https://i.ibb.co/tQK3Ggs/twitter.png","https://i.ibb.co/m4ZmypQ/white.png","https://i.ibb.co/GpGwm9N/yellow.png","https://i.ibb.co/Hd7mw8b/dotcyan.png","https://i.ibb.co/mt90k1M/dotmagenta.png","https://i.ibb.co/NLJTtx0/dotrain.png","https://i.ibb.co/PjcFzZq/dotwhite.png","https://i.ibb.co/bXfysQS/dotyellow.png"];
+        // const path = "assets/";
+
+const frame = new Frame({
+    scaling:"fit", 
+    width:840, 
+    height:845, 
+    color:"black", 
+    outerColor:"black", 
+    assets:["https://i.ibb.co/3vCMQWq/cyan.png","https://i.ibb.co/FH2WGPk/discord.png","https://i.ibb.co/5kHD1W6/logo.png","https://i.ibb.co/pyFhFKf/magenta.png","https://i.ibb.co/YbJSvjv/rainbow.png","https://i.ibb.co/tQK3Ggs/twitter.png","https://i.ibb.co/m4ZmypQ/white.png","https://i.ibb.co/GpGwm9N/yellow.png","https://i.ibb.co/Hd7mw8b/dotcyan.png","https://i.ibb.co/mt90k1M/dotmagenta.png","https://i.ibb.co/NLJTtx0/dotrain.png","https://i.ibb.co/PjcFzZq/dotwhite.png","https://i.ibb.co/bXfysQS/dotyellow.png"]
+});
+
+frame.on("ready", ()=>{ 
+    zog("have you ever ventured past the railfence?");
+
+    const stage = frame.stage;
+    let stageW = frame.width;
+    let stageH = frame.height;
+
+    // CODE HERE
+
+//emitters
+
+    const colours = [white, blue, yellow]
+    const colourSeries = series(colours)
+
+    function makeExpl() { 
+        let expl = new Shape(-20,-20,40,40);
+        expl.graphics.f(shuffle(colours)[0]).dp(0,0,18,6,rand(.5,.8));
+        return expl;
+        }
+    var boom = new Emitter({
+        obj:makeExpl,
+        startPaused: true
+    });
+
+//intro page
+
+    // function makeIntro() {
+        const page1 = new Container(stageW, stageH)
+        page1.backing = new Rectangle(page1.width, page1.height, black)
+        .addTo(page1);
+
+    //title
+    var title = new Label({
+        text: "Roll for Initiative",
+    size: 100,
+    color: "white"
+})
+    .pos(0, 50, CENTER)
+    .alp(0)
+    .animate({
+        props: {
+            alpha: 1
+        },
+        wait: 50
+    })
+    .addTo(page1);
+
+//start button
+        new Button({
+            corner:[25,25,25,25],
+            backgroundColor: "black",
+            rollBackgroundColor:"grey",
+            borderWidth:8,
+            borderColor:"white",
+            label:"Start"            
+        })
+        .pos(425,600,true,true)
+        .addTo(page1)
+        .tap(function () {
+            pages.go(page2, "right");
+        });
+
+        var twitter = frame.asset("https://i.ibb.co/tQK3Ggs/twitter.png")
+        .sca(1.5)
+        .pos(520,350,true,true)
+        .tap(function () {
+                zgo("https://twitter.com/totdeadsea","_blank");
+            })
+        .addTo(page1);
+
+        var discord = frame.asset("https://i.ibb.co/FH2WGPk/discord.png")
+        .sca(1.5)
+        .addTo(stage)
+        .pos(555,350,true,true)
+        .tap(function () {
+                zgo("https://discordapp.com/invite/sdTjs7w","_blank");
+            })
+        .addTo(page1);
+
+        var logo = frame.asset("https://i.ibb.co/5kHD1W6/logo.png")
+        .sca(1.25)
+        .addTo(stage)
+        .pos(425,350,true,true)
+        .addTo(page1);
+    // }
+
+//dice roll
+    // function makeDice() {
+        const page2 = new Container(stageW, stageH)
+        page2.backing = new Rectangle(page2.width, page2.height, black).addTo(page2);
+
+        var whi = frame.asset("https://i.ibb.co/m4ZmypQ/white.png")
+        .sca(1.5)
+        .alp(1)
+        .centerReg(page2);
+
+        var cy = frame.asset("https://i.ibb.co/3vCMQWq/cyan.png")
+        .sca(1.5)
+        .alp(1)
+        .centerReg(page2);
+
+        var mage = frame.asset("https://i.ibb.co/pyFhFKf/magenta.png")
+        .sca(1.5)
+        .alp(1)
+        .centerReg(page2);
+
+        var yell = frame.asset("https://i.ibb.co/GpGwm9N/yellow.png")
+        .sca(1.5)
+        .alp(1)
+        .centerReg(page2);
+
+        var rain = frame.asset("https://i.ibb.co/YbJSvjv/rainbow.png")
+        .sca(1.5)
+        .alp(1)
+        .centerReg(page2);
+
+
+        var whitedot = frame.asset("https://i.ibb.co/PjcFzZq/dotwhite.png")
+        .sca(1)
+        .alp(1)
+        .pos(800,700,true,true)
+        .tap(function () {
+            whi.alpha = 1;
+            cy.alpha = 0;
+            mage.alpha = 0;
+            yell.alpha = 0;
+            rain.alpha = 0;
+            stage.update();
+        })
+        .addTo(page2);
+
+
+        var cyandot = frame.asset("https://i.ibb.co/Hd7mw8b/dotcyan.png")
+        .sca(1)
+        .alp(1)
+        .pos(800,650,true,true)
+        .tap(function () {
+            whi.alpha = 0;
+            cy.alpha = 1;
+            mage.alpha = 0;
+            yell.alpha = 0;
+            rain.alpha = 0;
+            stage.update();
+        })
+        .addTo(page2);        
+
+        var magentadot = frame.asset("https://i.ibb.co/mt90k1M/dotmagenta.png")
+        .sca(1)
+        .alp(1)
+        .pos(800,600,true,true)
+        .tap(function () {
+            whi.alpha = 0;
+            cy.alpha = 0;
+            mage.alpha = 1;
+            yell.alpha = 0;
+            rain.alpha = 0;
+            stage.update();
+        })
+        .addTo(page2);
+
+
+        var yellowdot = frame.asset("https://i.ibb.co/bXfysQS/dotyellow.png")
+        .sca(1)
+        .alp(1)
+        .pos(800,550,true,true)
+        .tap(function () {
+            whi.alpha = 0;
+            cy.alpha = 0;
+            mage.alpha = 0;
+            yell.alpha = 1;
+            rain.alpha = 0;
+            stage.update();
+        })
+        .addTo(page2);
+
+
+        var raindot = frame.asset("https://i.ibb.co/NLJTtx0/dotrain.png")
+        .sca(1)
+        .alp(1)
+        .pos(800,500,true,true)
+        .tap(function () {
+            whi.alpha = 0;
+            cy.alpha = 0;
+            mage.alpha = 0;
+            yell.alpha = 0;
+            rain.alpha = 1;
+            stage.update();
+        })
+        .addTo(page2);
+
+        // time to do the math thing
+
+        let initiative = 0;
+        let min = 1;
+        let max = 20;
+
+
+        var roll = new Button({
+            corner:[25,25,25,25], 
+            backgroundColor: "black",
+            rollBackgroundColor:"grey",
+            borderWidth:8,
+            borderColor:"white",
+            label:"Roll!"            
+        })
+        .pos(440, 700, true, true)
+        .tap(function(e) {
+            initiativeLabel.text = +rand(min, max);
+            boom.loc(e.target).spurt(5),
+            stage.update();
+        })
+        .addTo(page2);
+
+        var initiativeLabel = new Label({
+                text:1, 
+                size:30,
+                align:"center", 
+                color: "white"
+            })
+            .centerReg(page2);
+
+        backbutton = new Triangle(50,50,50, white)
+        .alp(.8)
+        .hov(1)
+        .rot(-90)
+        .pos(800,350,true,true)
+        .tap(function () {
+            pages.go(page1, "left");
+        })
+        .addTo(page2);
+
+            //Page set up
+
+    const pages = new Pages([
+        {page:page1, swipe:[page2, page2, "help", "help"]}, 
+        {page:page2, swipe:[page1, page1, "help", "help"]}
+    ], "slide", 700).addTo();
+    
+    pages.on("help", () => {
+        if (pages.page == page2) {
+            zogg("helping");
+        } else {
+            zogr("helping");
+        }        
+    });
+    
+    frame.on("resize", () => {
+        stageW = frame.width;
+        stageH = frame.height;
+        
+        page1.setBounds(stageW, stageH);
+        page1.backing.siz(stageW, stageH);
+        
+        page2.setBounds(stageW, stageH);
+        page2.backing.siz(stageW, stageH);
+        
+        pages.resize();        
+    })
+
+
+    stage.update();
+    }); // end of ready
+
+</script>
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>
