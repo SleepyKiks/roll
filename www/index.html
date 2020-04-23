@@ -75,7 +75,7 @@ frame.on("ready", ()=>{
     size: 100,
     color: "white"
 })
-    .pos(0, 50, CENTER)
+    .pos(-25, 50, CENTER)
     .alp(0)
     .animate({
         props: {
@@ -94,7 +94,7 @@ frame.on("ready", ()=>{
             borderColor:"white",
             label:"Start"            
         })
-        .pos(425,600,true,true)
+        .pos(450,600,true,true)
         .addTo(page1)
         .tap(function () {
             pages.go(page2, "right");
@@ -102,7 +102,7 @@ frame.on("ready", ()=>{
 
         var twitter = frame.asset("https://i.ibb.co/tQK3Ggs/twitter.png")
         .sca(1.5)
-        .pos(520,350,true,true)
+        .pos(550,450,true,true)
         .tap(function () {
                 zgo("https://twitter.com/totdeadsea","_blank");
             })
@@ -111,7 +111,7 @@ frame.on("ready", ()=>{
         var discord = frame.asset("https://i.ibb.co/FH2WGPk/discord.png")
         .sca(1.5)
         .addTo(stage)
-        .pos(555,350,true,true)
+        .pos(575,450,true,true)
         .tap(function () {
                 zgo("https://discordapp.com/invite/sdTjs7w","_blank");
             })
@@ -120,7 +120,7 @@ frame.on("ready", ()=>{
         var logo = frame.asset("https://i.ibb.co/5kHD1W6/logo.png")
         .sca(1.25)
         .addTo(stage)
-        .pos(425,350,true,true)
+        .pos(450,450,true,true)
         .addTo(page1);
     // }
 
@@ -158,7 +158,7 @@ frame.on("ready", ()=>{
         var whitedot = frame.asset("https://i.ibb.co/PjcFzZq/dotwhite.png")
         .sca(1)
         .alp(1)
-        .pos(800,700,true,true)
+        .pos(750,700,true,true)
         .tap(function () {
             whi.alpha = 1;
             cy.alpha = 0;
@@ -173,7 +173,7 @@ frame.on("ready", ()=>{
         var cyandot = frame.asset("https://i.ibb.co/Hd7mw8b/dotcyan.png")
         .sca(1)
         .alp(1)
-        .pos(800,650,true,true)
+        .pos(750,650,true,true)
         .tap(function () {
             whi.alpha = 0;
             cy.alpha = 1;
@@ -187,7 +187,7 @@ frame.on("ready", ()=>{
         var magentadot = frame.asset("https://i.ibb.co/mt90k1M/dotmagenta.png")
         .sca(1)
         .alp(1)
-        .pos(800,600,true,true)
+        .pos(750,600,true,true)
         .tap(function () {
             whi.alpha = 0;
             cy.alpha = 0;
@@ -202,7 +202,7 @@ frame.on("ready", ()=>{
         var yellowdot = frame.asset("https://i.ibb.co/bXfysQS/dotyellow.png")
         .sca(1)
         .alp(1)
-        .pos(800,550,true,true)
+        .pos(750,550,true,true)
         .tap(function () {
             whi.alpha = 0;
             cy.alpha = 0;
@@ -217,7 +217,7 @@ frame.on("ready", ()=>{
         var raindot = frame.asset("https://i.ibb.co/NLJTtx0/dotrain.png")
         .sca(1)
         .alp(1)
-        .pos(800,500,true,true)
+        .pos(750,500,true,true)
         .tap(function () {
             whi.alpha = 0;
             cy.alpha = 0;
@@ -243,7 +243,7 @@ frame.on("ready", ()=>{
             borderColor:"white",
             label:"Roll!"            
         })
-        .pos(440, 700, true, true)
+        .pos(470, 700, true, true)
         .tap(function(e) {
             initiativeLabel.text = +rand(min, max);
             boom.loc(e.target).spurt(5),
@@ -263,7 +263,7 @@ frame.on("ready", ()=>{
         .alp(.8)
         .hov(1)
         .rot(-90)
-        .pos(800,350,true,true)
+        .pos(750,425,true,true)
         .tap(function () {
             pages.go(page1, "left");
         })
